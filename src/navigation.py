@@ -12,14 +12,14 @@ class NavigationController:
     def openView(self, view):
         self.mainWindow.setCentralWidget(view)
 
-    def openStartView(self):
+    def navigateToStart(self):
         self.openView(StartView(self))
 
-    def openAdminView(self):
+    def navigateToAdminPanel(self):
         self.openView(AdminView(self))
 
-    def openStudentView(self):
+    def navigateToStudentPanel(self):
         self.openView(StudentView(self))
 
-    def openTeacherView(self):
+    def navigateToTeacherPanel(self):
         self.openView(TeacherView(self))

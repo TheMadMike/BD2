@@ -16,7 +16,7 @@ class AdminView(View):
             QPushButton(backButtonText)
         ]   
 
-        self.widgets[1].clicked.connect(lambda: navigator.openStartView())
+        self.widgets[1].clicked.connect(lambda: navigator.navigateToStart())
 
         for widget in self.widgets:
             layout.addWidget(widget)

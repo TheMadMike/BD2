@@ -16,9 +16,9 @@ class StartView(View):
             QPushButton(strings["teacherButtonText"])
         ]   
 
-        self.widgets[1].clicked.connect(lambda: navigator.openAdminView())
-        self.widgets[2].clicked.connect(lambda: navigator.openStudentView())
-        self.widgets[3].clicked.connect(lambda: navigator.openTeacherView())
+        self.widgets[1].clicked.connect(lambda: navigator.navigateToAdminPanel())
+        self.widgets[2].clicked.connect(lambda: navigator.navigateToStudentPanel())
+        self.widgets[3].clicked.connect(lambda: navigator.navigateToTeacherPanel())
 
         for widget in self.widgets:
             layout.addWidget(widget)
