@@ -5,7 +5,10 @@ from admin_view import AdminView
 from start_view import StartView
 from navigation import NavigationController
 
+from strings import mainWindowTitle
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle(mainWindowTitle)
         self.navigator = NavigationController(self)
