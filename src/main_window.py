@@ -1,8 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QMainWindow
 from view import View
-
-from admin_view import AdminView
-from start_view import StartView
 from navigation import NavigationController
 
 from strings import mainWindowTitle
