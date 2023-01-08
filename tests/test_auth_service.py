@@ -3,6 +3,8 @@ from unittest import TestCase
 from auth_service import AuthService
 import pytest
 
+# Note: PESEL - Polish government's unique personal identification number for each citizen
+
 @patch('auth_service.DbSession')
 @patch('auth_service.ErrorBox')
 @patch('auth_service.LoginDialog')
@@ -21,7 +23,7 @@ class TestAuthService(TestCase):
         LoginDialogMock.return_value.exec.assert_called_once()
 
         # When:
-        # Scenario 2: ask for both password and id
+        # Scenario 2: ask for both password and PESEL number
         uut.askForPasswordAndAuth('testuser', True)
 
         # Then:
@@ -32,8 +34,9 @@ class TestAuthService(TestCase):
 
     def test_authService_runs_SqlQuery_when_idRequired(self, LoginDialogMock, ErrorBoxMock, DbSessionMock):
         # Setup mocks
-        # setup fake ID value
-        LoginDialogMock.return_value.idField.text.return_value = '123'
+        # setup fake PESEL value
+        LoginDialogMock.return_value.peselField.text.return_value = '123'
+
         # setup DbSession.isOpen
         DbSessionMock.return_value.isOpen = True
 

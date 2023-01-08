@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QDialog, QVBoxLayout, QDialogButtonBox, QLabel, QLin
 from strings import loginDialogTitle, loginDialogIdText, loginDialogPasswordText
 
 class LoginDialog(QDialog):
-    def __init__(self, requiresId):
+    def __init__(self, requirePESEL):
         super().__init__()
 
         self.setWindowTitle(loginDialogTitle)
@@ -15,10 +15,10 @@ class LoginDialog(QDialog):
         self.buttonBox.rejected.connect(self.reject)
 
         self.layout = QVBoxLayout()
-        self.idField = QLineEdit()
-        if requiresId:
+        self.peselField = QLineEdit()
+        if requirePESEL:
             self.layout.addWidget(QLabel(loginDialogIdText))
-            self.layout.addWidget(self.idField)            
+            self.layout.addWidget(self.peselField)            
 
         self.passwordFiled = QLineEdit()
         self.passwordFiled.setEchoMode(QLineEdit.Password)
@@ -27,3 +27,4 @@ class LoginDialog(QDialog):
         self.layout.addWidget(self.passwordFiled)
         self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
+

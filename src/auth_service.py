@@ -5,10 +5,10 @@ from strings import invalidPasswordOrIdMessage
 
 class AuthService:
     def __init__(self):
-        self.id = None
+        self.pesel = None
 
-    def askForPasswordAndAuth(self, username, requireId = False, idView=None) -> DbSession | None:
-        dialog = LoginDialog(requireId)
+    def askForPasswordAndAuth(self, username, requirePesel = False, peselView=None) -> DbSession | None:
+        dialog = LoginDialog(requirePesel)
         dialog.exec()
 
         dbSession = DbSession(username, dialog.passwordFiled.text())
@@ -17,10 +17,10 @@ class AuthService:
             ErrorBox(invalidPasswordOrIdMessage).exec()
             return None
 
-        self.id = dialog.idField.text()
+        self.pesel = dialog.peselField.text()
 
-        if requireId:
-            data = dbSession.query(f"SELECT * FROM system.{idView} WHERE \"pesel\" = '{self.id}'")
+        if requirePesel:
+            data = dbSession.query(f"SELECT * FROM system.{peselView} WHERE \"pesel\" = '{self.pesel}'")
 
             if len(data) != 1:
                 dbSession.close()

@@ -40,7 +40,7 @@ class NavigationController:
         self.dbSession = self.authService.askForPasswordAndAuth("uczen", True, "v_uczniowie")
 
         if self.dbSession is not None:
-            self.openView(StudentView(self, self.authService.id))
+            self.openView(StudentView(self, self.authService.pesel))
 
 
     def navigateToTeacherPanel(self):
