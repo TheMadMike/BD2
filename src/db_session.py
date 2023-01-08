@@ -13,6 +13,16 @@ class DbSession:
             print(error)
             self.isOpen = False
 
+    def query(self, query: str):
+        if self.isOpen:
+            try:
+                cursor = self.connection.cursor()
+                cursor.execute(query)
+            except cx_Oracle.Error as error:
+                print(error)
+                return []
+            return cursor.fetchall()
+
     def close(self):
         self.isOpen = False
         self.connection.close()
