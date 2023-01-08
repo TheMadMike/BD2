@@ -9,6 +9,8 @@ import pytest
 @patch('auth_service.ErrorBox')
 @patch('auth_service.LoginDialog')
 class TestAuthService(TestCase):
+
+    # AuthService.askForPasswordAndAuth should always ask for password
     def test_authService_always_asksForPassword(self, LoginDialogMock, ErrorBoxMock, DbSessionMock):
         # Given:
         uut = AuthService()
@@ -31,8 +33,8 @@ class TestAuthService(TestCase):
         assert LoginDialogMock.return_value.exec.call_count == 2
         assert LoginDialogMock.call_count == 2
 
-
-    def test_authService_runs_SqlQuery_when_idRequired(self, LoginDialogMock, ErrorBoxMock, DbSessionMock):
+    # AuthService.askForPasswordAndAuth should run SQL query to check if user with required PESEL exists
+    def test_authService_runs_sqlQuery_when_peselRequired(self, LoginDialogMock, ErrorBoxMock, DbSessionMock):
         # Setup mocks
         # setup fake PESEL value
         LoginDialogMock.return_value.peselField.text.return_value = '123'
