@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QLabel, QTableView
+from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QLabel, QTableView, QHeaderView
 
 from strings import studentViewStrings as strings
 from strings import backButtonText
@@ -16,7 +16,8 @@ class StudentView(View):
         studentData = MapWidget(self.controller.getBasicStudentDataAsMap())
         
         gradeTable = QTableView()
-        #gradeTable.setModel(self.controller.getStudentGradeTable())
+        gradeTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        gradeTable.setModel(self.controller.getStudentGradeTable())
 
         self.widgets = [
             QLabel(strings["promptText"]),

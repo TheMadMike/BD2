@@ -37,5 +37,36 @@ class TestStudentService(TestCase):
 
         # Then:
         assert student.name == "TEST"
-        
-        
+
+    
+    def test_getAllGradesByPesel_shouldReturn_emptyList_when_noRows(self, DbSessionMock):
+        # Setup DbSession mock
+        session = DbSessionMock()
+
+        # Given:
+        uut = StudentService(session)
+
+        # When:
+        expected_value = []
+        session.query.return_value = expected_value
+        grades = uut.getAllGradesByStudentPesel('123')
+
+        # Then:
+        assert grades == expected_value
+
+
+    def test_getAllGradesByPesel_shouldReturn_nonEmptyList_when_oneOrMoreRows(self, DbSessionMock):
+        # Setup DbSession mock
+        session = DbSessionMock()
+
+        # Given:
+        uut = StudentService(session)
+
+        # When:
+        expected_value = [[], []]
+        session.query.return_value = expected_value
+        grades = uut.getAllGradesByStudentPesel('123')
+
+        # Then:
+        assert len(grades) != 0
+        assert grades == expected_value

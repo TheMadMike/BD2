@@ -39,7 +39,12 @@ studentViewStrings = {
     "surnameLabel": "Nazwisko",
     "startDateLabel": "Data rozpoczęcia nauki",
     "classLabel": "Klasa",
-    "majorLabel": "Rozszerzenie/a"
+    "majorLabel": "Rozszerzenie/a",
+
+    "gradeHeader" : "Ocena",
+    "subjectHeader": "Przedmiot",
+    "levelHeader" : "Poziom",
+    "gradeDateHeader": "Data wystawienia"
 }
 
 teacherViewStrings = {

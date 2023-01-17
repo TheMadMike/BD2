@@ -25,5 +25,15 @@ class StudentService:
 
         return student
 
-    def getStudentGradesById(self, id) -> list:
-        pass
+    def getAllGradesByStudentPesel(self, pesel) -> list:
+        try:
+            rows = self.session.query(f"""
+                SELECT \"Przedmiot\", \"rozszerzony?\", \"Ocena\", \"Data wystawienia oceny\"  
+                FROM system.v_oceny 
+                WHERE \"pesel\"='{pesel}'
+                """)
+        except Exception as exception:
+            print(exception)
+            return []
+        
+        return rows
