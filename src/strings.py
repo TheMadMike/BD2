@@ -10,6 +10,10 @@ invalidPasswordOrIdMessage = "Nieprawidłowe dane logowania lub błąd serwera. 
 
 errorDialogTitle = "Wystąpił błąd"
 
+errorPrompt = "Wystąpił błąd"
+
+studentNotFoundPrompt = "Nie znaleziono ucznia o podanym PESELu"
+
 startViewStrings = {
     "promptText" : "Wybierz rolę:",
     "adminButtonText" : "Sekretariat",
@@ -28,7 +32,14 @@ adminViewStrings = {
 }
 
 studentViewStrings = {
-    "promptText": "E-Dziennik: Uczeń"
+    "promptText": "E-Dziennik: Uczeń",
+    "gradeTableTitle": "Oceny:",
+    
+    "nameLabel" : "Imię",
+    "surnameLabel": "Nazwisko",
+    "startDateLabel": "Data rozpoczęcia nauki",
+    "classLabel": "Klasa",
+    "majorLabel": "Rozszerzenie/a"
 }
 
 teacherViewStrings = {

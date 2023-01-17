@@ -1,25 +1,38 @@
-from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QLabel
+from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QLabel, QTableView
 
 from strings import studentViewStrings as strings
 from strings import backButtonText
 from view import View
-
-# TODO: add student view design
+from map_widget import MapWidget
+from student_controller import StudentController
 
 class StudentView(View):
-    def __init__(self, navigator):
+    def __init__(self, navigator, pesel, session):
         super().__init__()
+
+        self.controller = StudentController(pesel, session)
         
-        layout = QVBoxLayout()
+        layout = QVBoxLayout()  
+        studentData = MapWidget(self.controller.getBasicStudentDataAsMap())
+        
+        gradeTable = QTableView()
+        #gradeTable.setModel(self.controller.getStudentGradeTable())
 
         self.widgets = [
             QLabel(strings["promptText"]),
-            QPushButton(backButtonText)
+            studentData,
+            QLabel(strings["gradeTableTitle"]),
+            gradeTable
         ]   
 
-        self.widgets[1].clicked.connect(lambda: navigator.navigateToStart())
+        backButton = QPushButton(backButtonText)
+        
+        backButton.clicked.connect(lambda: navigator.navigateToStart())
 
         for widget in self.widgets:
             layout.addWidget(widget)
 
+        layout.addWidget(backButton)
+
         self.setLayout(layout)
+    

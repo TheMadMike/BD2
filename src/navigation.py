@@ -1,12 +1,9 @@
-from PyQt5.QtWidgets import QWidget, QMainWindow
+from PyQt5.QtWidgets import QMainWindow
 
 from start_view import StartView
 from admin_view import AdminView
 from student_view import StudentView
 from teacher_view import TeacherView
-
-from db_session import DbSession
-from strings import invalidPasswordOrIdMessage
 
 from auth_service import AuthService
 
@@ -40,7 +37,7 @@ class NavigationController:
         self.dbSession = self.authService.askForPasswordAndAuth("uczen", True, "v_uczniowie")
 
         if self.dbSession is not None:
-            self.openView(StudentView(self, self.authService.pesel))
+            self.openView(StudentView(self, self.authService.pesel, self.dbSession))
 
 
     def navigateToTeacherPanel(self):
