@@ -8,7 +8,7 @@ class LoginDialog(QDialog):
 
         self.setWindowTitle(loginDialogTitle)
 
-        QBtn = QDialogButtonBox.Ok
+        QBtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
 
         self.buttonBox = QDialogButtonBox(QBtn)
         self.buttonBox.accepted.connect(self.accept)
