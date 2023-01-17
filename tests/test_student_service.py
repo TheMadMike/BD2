@@ -8,7 +8,7 @@ from exceptions import StudentNotFound
 class TestStudentService(TestCase):
 
     # should raise StudentNotFound exception when no rows
-    def test_getStudentDataByPesel_should_raiseException_when_noRows(self, DbSessionMock):
+    def test_getBasicStudentDataByPesel_should_raiseException_when_noRows(self, DbSessionMock):
         # Setup DbSession mock
         session = DbSessionMock()
 
@@ -20,10 +20,10 @@ class TestStudentService(TestCase):
         
         # Then:
         with self.assertRaises(StudentNotFound) as exception:
-            uut.getStudentDataByPesel('123')
+            uut.getBasicStudentDataByPesel('123')
 
     # should not raise any exceptions when one row with 7 columns fetched
-    def test_getStudentDataByPesel_shouldNot_raiseExceptions_when_oneRow(self, DbSessionMock):
+    def test_getBasicStudentDataByPesel_shouldNot_raiseExceptions_when_oneRow(self, DbSessionMock):
         # Setup DbSession mock
         session = DbSessionMock()
 
@@ -33,7 +33,7 @@ class TestStudentService(TestCase):
         # When:
         expected_value = [ ("1", "TEST", "", "", "", "", "" ,"", "") ]
         session.query.return_value = expected_value
-        student = uut.getStudentDataByPesel('123')
+        student = uut.getBasicStudentDataByPesel('123')
 
         # Then:
         assert student.name == "TEST"
