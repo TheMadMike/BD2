@@ -41,7 +41,7 @@ class NavigationController:
 
 
     def navigateToTeacherPanel(self):
-        self.dbSession = self.authService.askForPasswordAndAuth("nauczyciel", True, "dane_osobowe")
+        self.dbSession = self.authService.askForPasswordAndAuth("nauczyciel", True, "v_nauczyciele")
 
         if self.dbSession is not None:
             self.openView(TeacherView(self))

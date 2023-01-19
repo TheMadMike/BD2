@@ -48,6 +48,12 @@ studentViewStrings = {
 }
 
 teacherViewStrings = {
-    "promptText": "E-Dziennik: Nauczyciel"
+    "promptText": "E-Dziennik: Nauczyciel",
+    "searchBarPlaceholder" : "Wyszukaj ucznia...",
+    "searchButtonText": "Szukaj",
+    "addGradeText" : "Dodaj ocenę cząstkową",
+    "addFinalGradeText" : "Dodaj ocenę końcową",
+    "modifyGradeText" : "Zmień wybraną ocenę",
+    "gradeTableTitle": "Oceny ucznia:"
 }
 
