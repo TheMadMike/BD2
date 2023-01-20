@@ -13,6 +13,7 @@ errorDialogTitle = "Wystąpił błąd"
 errorPrompt = "Wystąpił błąd"
 
 studentNotFoundPrompt = "Nie znaleziono ucznia o podanym PESELu"
+teacherNotFoundPrompt = "Nie znaleziono nauczyciela o podanym PESELu"
 
 startViewStrings = {
     "promptText" : "Wybierz rolę:",
@@ -52,8 +53,25 @@ teacherViewStrings = {
     "searchBarPlaceholder" : "Wyszukaj ucznia...",
     "searchButtonText": "Szukaj",
     "addGradeText" : "Dodaj ocenę cząstkową",
-    "addFinalGradeText" : "Dodaj ocenę końcową",
+    "addFinalGradeText" : "Wystaw/zmień ocenę końcową",
     "modifyGradeText" : "Zmień wybraną ocenę",
-    "gradeTableTitle": "Oceny ucznia:"
+    "gradeTableTitle": "Oceny ucznia:",
+    "extendedLevel" : "poziom rozszerzony",
+    "basicLevel" : "poziom podstawowy",
+    "loggedAs" : "Zalogowany/a jako: ",
+
+    "nameLabel" : "Imię",
+    "surnameLabel": "Nazwisko",
+    "startDateLabel": "Data rozpoczęcia pracy",
+    "gradeDialogTitle": "Ocenianie",
+
+    "gradeLabel" : "Ocena",
+    "subjectLabel" : "Przedmiot",
+    "meanLabel": "Średnia ocen wybranego ucznia:",
+    "finalGradeLabel": "Ocena końcowa:",
+    "subjectNotChosen" : "Nie wybrano przedmiotu!",
+    "studentNotChosen" : "Proszę wybrać ucznia!",
+    "invalidGrade": "Niepoprawna ocena!",
+    "gradeNotChosen": "Proszę wybrać ocenę!"
 }
 
