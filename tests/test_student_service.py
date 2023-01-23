@@ -100,18 +100,74 @@ class TestStudentService(TestCase):
         assert students[0].name == "Mike" and students[0].surname == "Tyson"
 
 
-    #TODO: write tests for those methods:
-    def test_methodsNotCovered(self):
-        raise Exception("Some StudentService methods are not covered yet!")
-
-    ### getAllGradeIdsByStudentPesel
-
     ### getFinalGrade
 
+    def test_getFinalGrade_shouldThrow_StudentNotFound_when_noRowsFetched(self):
+        # Given:
+        uut = StudentService(self.session)
+        
+        # When:
+        expected_value = []
+        self.session.query.return_value = expected_value
+        
+        # Then:
+        with self.assertRaises(StudentNotFound) as exception:
+            uut.getFinalGrade('123', 'subject')
+
+
+    def test_getFinalGrade_shouldReturn_float_when_studentExists(self):
+        # Given:
+        uut = StudentService(self.session)
+
+        # When:
+        expected_value = [[5.0]]
+        self.session.query.return_value = expected_value
+        grade = uut.getFinalGrade('123', 'subject')
+
+        # Then:
+        assert type(grade) == float
+        assert grade == expected_value[0][0]
+    
+    
     ### gradeStudent
 
-    ### setFinalGrade
+    def test_gradeStudent_shouldThrow_StudentNotFound_when_noRowsFetched(self):
+        # Given:
+        uut = StudentService(self.session)
 
-    ### modifyGrade
+        # When:
+        expected_value = []
+        self.session.query.return_value = expected_value
+
+        # Then:
+        with self.assertRaises(StudentNotFound) as exception:
+            uut.getFinalGrade('123', 'subject')
+    
 
     ### getGradesMeanForSubject
+
+    def test_getGradesMeanForSubject_shouldThrow_when_noRowsFetched(self):
+        # Given:
+        uut = StudentService(self.session)
+
+        # When:
+        expected_value = []
+        self.session.query.return_value = expected_value
+
+        # Then:
+        with self.assertRaises(Exception) as exception:
+            uut.getGradesMeanForSubject('123', 'subject')
+
+
+    def test_getGradesMeanForSubject_shouldReturnFloat_when_studentExists(self):
+        # Given:
+        uut = StudentService(self.session)
+
+        # When:
+        expected_value = [[5.0]]
+        self.session.query.return_value = expected_value
+        grade = uut.getGradesMeanForSubject('123', 'subject')
+
+        # Then:
+        assert type(grade) == float
+        assert grade == expected_value[0][0]

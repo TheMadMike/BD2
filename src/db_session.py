@@ -13,7 +13,8 @@ class DbSession:
             print(error)
             self.isOpen = False
 
-    def query(self, query: str):
+    # TODO: SQL injections
+    def query(self, query: str, dml = False):
         if self.isOpen:
             try:
                 cursor = self.connection.cursor()
@@ -22,6 +23,16 @@ class DbSession:
                 print(error)
                 return []
             return cursor.fetchall()
+
+    def getCursor(self):
+        if self.isOpen:
+            return self.connection.cursor()
+
+        return None
+    
+    def commitChange(self):
+        if self.isOpen:
+            self.connection.commit()
 
     def close(self):
         self.isOpen = False

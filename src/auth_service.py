@@ -3,6 +3,7 @@ from login_dialog import LoginDialog
 from error_box import ErrorBox
 from strings import invalidPasswordOrIdMessage
 
+# TODO: rename to AuthController and delegate part of it's functionality to a new AuthService
 class AuthService:
     def __init__(self):
         self.pesel = None

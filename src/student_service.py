@@ -39,11 +39,24 @@ class StudentService:
                 JOIN system.przedmioty USING (id_przedmiotu)
                 WHERE id_ucznia={studentId} AND nazwa_przedmiotu LIKE '{subject}%'  
             """)
+            
+            return float(rows[0][0])
+
         except Exception as exception:
             print(exception)
-            raise StudentNotFound(pesel)
-        
-        return float(rows[0][0])
+            raise StudentNotFound(self.getPeselByStudentId(studentId))
+
+    
+    def getPeselByStudentId(self, studentId):
+        try:
+            return self.session.query(f"""
+                SELECT \"pesel\"
+                FROM system.v_uczniowie
+                WHERE \"Id_ucznia\"={studentId}
+            """)[0][0]
+        except Exception as exception:
+            print(exception)
+            raise StudentNotFound('')
 
 
     def getAllGradesByStudentPesel(self, pesel) -> list:
@@ -66,6 +79,7 @@ class StudentService:
             FROM system.v_uczniowie 
             WHERE \"Imie\" LIKE '%{searchPhrase}%'
             OR \"Nazwisko\" LIKE '%{searchPhrase}%'
+            OR \"pesel\" LIKE '{searchPhrase}%'
         """
 
         if teacherPesel is not None:
@@ -73,7 +87,8 @@ class StudentService:
             SELECT *
             FROM system.v_uczniowie 
             WHERE (\"Imie\" LIKE '%{searchPhrase}%'
-            OR \"Nazwisko\" LIKE '%{searchPhrase}%')
+            OR \"Nazwisko\" LIKE '%{searchPhrase}%'
+            OR \"pesel\" LIKE '{phrase}%')
             AND \"Id klasy\" IN (SELECT id_klasy 
                     from system.przydzielone_godziny pg
                     join system.nauczyciel_przedmiot np ON pg.id_nauczyciel_przedmiot = np.id_nauczyciel_przedmiot
@@ -129,7 +144,7 @@ class StudentService:
 
         except Exception as exception:
             print(exception)
-            return 0.0
+            raise Exception()
 
     def __recordToStudent(self, record) -> Student:
         student = Student()
@@ -142,3 +157,101 @@ class StudentService:
         student.major = record[6]
 
         return student
+
+
+    def getFullStudentData(self, pesel) -> Student:
+        student = Student()
+        try:
+            studentViewRows = self.session.query(f"""
+                SELECT * 
+                FROM system.v_uczniowie 
+                WHERE \"pesel\"='{pesel}'
+            """)
+
+            if len(studentViewRows) < 1:
+                raise Exception()
+
+            student = self.__recordToStudent(studentViewRows[0])
+
+            personalDataRows = self.session.query(f"""
+                SELECT numer_telefonu, email, adres_zamieszkania, data_urodzenia
+                FROM system.dane_osobowe
+                WHERE pesel='{pesel}'
+            """)
+            
+            student.telephone = personalDataRows[0][0]
+            student.email = personalDataRows[0][1]
+            student.address = personalDataRows[0][2]
+            student.birthday = personalDataRows[0][3]
+
+        except Exception as exception:
+            raise StudentNotFound(pesel)
+
+
+        return student
+
+
+    def getAllStudents(self) -> list:
+        try:
+            rows = self.session.query(f"""
+                SELECT *
+                FROM system.v_uczniowie 
+            """)
+            students = []
+
+            for record in rows:
+                students.append(self.__recordToStudent(record))
+
+            return students
+        except Exception as exception:
+            print(exception)
+            return []
+
+    
+    def addNewStudent(self, student: Student):
+        try:
+            cursor = self.session.getCursor()
+            cursor.callproc('system.dodaj_ucznia', [
+                student.name,
+                student.surname,
+                student.telephone,
+                student.email,
+                student.address,
+                student.birthday,
+                student.pesel,
+                student.startDate,
+                student.classId
+            ])
+        except Exception as exception:
+            print(exception)
+
+
+    def updateStudent(self, student: Student):
+        try:
+            cursor = self.session.getCursor()
+            cursor.callproc('system.aktualizuj_dane_ucznia', [
+                student.name,
+                student.surname,
+                student.telephone,
+                student.email,
+                student.address,
+                student.birthday,
+                student.pesel,
+                student.startDate,
+                student.classId
+            ])
+        except Exception as exception:
+            print(exception)
+
+
+    def deleteStudent(self, pesel):
+        try:
+            cursor = self.session.getCursor()
+            cursor.execute(f"""
+                DELETE FROM system.dane_osobowe
+                WHERE pesel='{pesel}'
+            """)
+            self.session.commitChange()
+
+        except Exception as exception:
+            print(exception)

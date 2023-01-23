@@ -24,12 +24,17 @@ startViewStrings = {
 
 adminViewStrings = {
     "promptText": "Panel administracyjny sekretariatu",
-    "personalDataTitle": "Zarządzaj danymi osobowymi",
-    "teachersTitle": "Zarządzaj nauczycielami",
-
-    "searchButtonText": "Wyszukaj",
-    "modifyButtonText": "Modyfikuj",
-    "addButtonText": "Dodaj"
+    "studentsTitle" : "Uczniowie:",
+    "teachersTitle" : "Nauczyciele",
+    "searchForStudents": "Wyszukaj uczniów...",
+    "searchForTeachers": "Wyszukaj nauczycieli...",
+    "searchButtonText": "Szukaj",
+    "addNewStudentText" : "Dodaj ucznia",
+    "addNewTeacherText" : "Dodaj nauczyciela",
+    "modifyText": "Modyfikuj",
+    "deleteStudentText": "Usuń ucznia",
+    "deleteTeacherText": "Usuń nauczyciela",
+    "assignTeacherText": "Przydziel nauczycielowi godziny",
 }
 
 studentViewStrings = {
@@ -41,11 +46,38 @@ studentViewStrings = {
     "startDateLabel": "Data rozpoczęcia nauki",
     "classLabel": "Klasa",
     "majorLabel": "Rozszerzenie/a",
+    "peselLabel": "PESEL",
 
     "gradeHeader" : "Ocena",
     "subjectHeader": "Przedmiot",
     "levelHeader" : "Poziom",
     "gradeDateHeader": "Data wystawienia"
+}
+
+studentFormStrings = {
+    "nameLabel" : "Imię:",
+    "surnameLabel" : "Nazwisko:",
+    "telephoneLabel" : "Nr telefonu:",
+    "emailLabel" : "Adres e-mail:",
+    "addressLabel" : "Adres zamieszkania:",
+    "birthdayLabel" : "Data urodzenia (DD-MM-RRRR):",
+    "peselLabel": "Nr PESEL:",
+    "startDateLabel" : "Data rozpoczęcia nauki (DD-MM-RRRR):",
+    "classIdLabel" : "Klasa:"
+}
+
+teacherFormStrings = {
+    "nameLabel" : studentFormStrings["nameLabel"],
+    "surnameLabel" : studentFormStrings["surnameLabel"],
+    "telephoneLabel" : studentFormStrings["telephoneLabel"],
+    "emailLabel" : studentFormStrings["emailLabel"],
+    "addressLabel" : studentFormStrings["addressLabel"],
+    "birthdayLabel" : studentFormStrings["birthdayLabel"],
+    "peselLabel": studentFormStrings["peselLabel"],
+    "startDateLabel" : "Data rozpoczęcia pracy (DD-MM-RRRR):",
+    "subjectLabel": "Przedmiot:",
+    "classIdLabel": "Klasa:",
+    "hoursTaughtLabel": "Godziny przydzielone:",
 }
 
 teacherViewStrings = {
@@ -72,6 +104,8 @@ teacherViewStrings = {
     "subjectNotChosen" : "Nie wybrano przedmiotu!",
     "studentNotChosen" : "Proszę wybrać ucznia!",
     "invalidGrade": "Niepoprawna ocena!",
-    "gradeNotChosen": "Proszę wybrać ocenę!"
+    "gradeNotChosen": "Proszę wybrać ocenę!",
+    "teacherNotChosen": "Proszę wybrać nauczyciela!",
+    "availableHoursLabel": "Wolne godziny (tyg.)"
 }
 
