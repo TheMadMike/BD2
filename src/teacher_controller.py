@@ -68,6 +68,7 @@ class TeacherController:
                 return
             
             self.studentService.setFinalGrade(self.selectedStudent.pesel, dialog.selectedSubject, dialog.gradeField.text())
+            self.selectedStudent = None
 
 
     def modifyGrade(self):
@@ -81,15 +82,20 @@ class TeacherController:
 
         dialog = ModifyGradeDialog()
         if dialog.exec():
-            if math.isnan(float(dialog.gradeField.text())):
+            try:
+                if math.isnan(float(dialog.gradeField.text())) or dialog.gradeField.text() == "":
+                    ErrorBox(strings["invalidGrade"]).exec()
+                    return
+            
+                gradeIds = self.studentService.getAllGradeIdsByStudentPesel(self.selectedStudent.pesel)
+                gradeId = gradeIds[self.selectedGradeIndex][0]
+                
+                self.studentService.modifyGrade(gradeId, dialog.gradeField.text())
+                self.reloadGradeList()
+                self.selectedStudent = None
+            except Exception as exception:
                 ErrorBox(strings["invalidGrade"]).exec()
-                return
-            
-            gradeIds = self.studentService.getAllGradeIdsByStudentPesel(self.selectedStudent.pesel)
-            gradeId = gradeIds[self.selectedGradeIndex][0]
-            
-            self.studentService.modifyGrade(gradeId, dialog.gradeField.text())
-            self.reloadGradeList()
+                print(exception)
             
 
 

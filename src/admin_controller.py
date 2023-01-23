@@ -65,7 +65,8 @@ class AdminController:
         dialog.peselField.setReadOnly(True)
         if dialog.exec():
             self.studentService.updateStudent(dialog.getDataAsStudent())
-            self.reloadStudentTable()        
+            self.reloadStudentTable()
+            self.selectedStudent = None
 
     
     def deleteSelectedStudent(self):
@@ -75,6 +76,7 @@ class AdminController:
 
         self.studentService.deleteStudent(self.selectedStudent.pesel)
         self.reloadStudentTable()
+        self.selectedStudent = None
 
 
     def selectStudent(self, index):
@@ -155,7 +157,7 @@ class AdminController:
 
         self.teacherService.deleteTeacher(self.selectedTeacher.pesel)
         self.reloadTeacherTable()
-
+        self.selectedTeacher = None
 
     def selectTeacher(self, index):
         self.selectedTeacher = self.teacherList[index.row()]
