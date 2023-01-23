@@ -43,13 +43,15 @@ class TeacherController:
             if dialog.selectedSubject is None:
                 ErrorBox(strings["subjectNotChosen"]).exec()
                 return
-            
-            if math.isnan(float(dialog.gradeField.text())):
-                ErrorBox(strings["invalidGrade"]).exec()
-                return
+            try:
+                if math.isnan(float(dialog.gradeField.text())):
+                    ErrorBox(strings["invalidGrade"]).exec()
+                    return
 
-            self.studentService.gradeStudent(self.selectedStudent.pesel, dialog.selectedSubject, dialog.gradeField.text())
-            self.reloadGradeList()
+                self.studentService.gradeStudent(self.selectedStudent.pesel, dialog.selectedSubject, dialog.gradeField.text())
+                self.reloadGradeList()
+            except Exception as exception:
+                ErrorBox(strings["invalidGrade"]).exec()
 
 
     def addFinalGrade(self):
@@ -62,14 +64,17 @@ class TeacherController:
             if dialog.selectedSubject is None:
                 ErrorBox(strings["subjectNotChosen"]).exec()
                 return
+            try:
             
-            if math.isnan(float(dialog.gradeField.text())):
+                if math.isnan(float(dialog.gradeField.text())):
+                    ErrorBox(strings["invalidGrade"]).exec()
+                    return
+            
+                self.studentService.setFinalGrade(self.selectedStudent.pesel, dialog.selectedSubject, dialog.gradeField.text())
+                self.selectedStudent = None
+            except Exception as exception:
                 ErrorBox(strings["invalidGrade"]).exec()
-                return
-            
-            self.studentService.setFinalGrade(self.selectedStudent.pesel, dialog.selectedSubject, dialog.gradeField.text())
-            self.selectedStudent = None
-
+                print(exception)
 
     def modifyGrade(self):
         if self.selectedStudent is None:
