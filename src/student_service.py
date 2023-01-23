@@ -88,7 +88,7 @@ class StudentService:
             FROM system.v_uczniowie 
             WHERE (\"Imie\" LIKE '%{searchPhrase}%'
             OR \"Nazwisko\" LIKE '%{searchPhrase}%'
-            OR \"pesel\" LIKE '{phrase}%')
+            OR \"pesel\" LIKE '{searchPhrase}%')
             AND \"Id klasy\" IN (SELECT id_klasy 
                     from system.przydzielone_godziny pg
                     join system.nauczyciel_przedmiot np ON pg.id_nauczyciel_przedmiot = np.id_nauczyciel_przedmiot
