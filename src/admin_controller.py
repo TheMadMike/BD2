@@ -71,7 +71,7 @@ class AdminController:
     
     def deleteSelectedStudent(self):
         if self.selectedStudent is None:
-            ErrorBox(teacherViewStrings["studentNotChosen"])
+            ErrorBox(teacherViewStrings["studentNotChosen"]).exec()
             return
 
         self.studentService.deleteStudent(self.selectedStudent.pesel)
